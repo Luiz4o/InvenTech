@@ -1,0 +1,15 @@
+.Action {
+    width: 135px;
+    height: 45px;
+    background-color: #5AE4A7;
+    border-radius: 10%;
+    border: none;
+}
+
+.Cancel {
+    width: 135px;
+    height: 45px;
+    background-color: #3C9F76;
+    border-radius: 10%;
+    border: none;
+}
