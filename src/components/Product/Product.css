@@ -1,0 +1,10 @@
+.container__product {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 2px solid;
+    width: 560px;
+    height: 200px;
+    margin: 0 25px;
+    border-radius: 10px;
+}

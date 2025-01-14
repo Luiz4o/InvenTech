@@ -3,15 +3,17 @@ import './Sidebar.css';
 
 
 interface SidebarProps {
-  Content:JSX.Element[] | React.ReactNode; 
+  Content:JSX.Element[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({Content }) => {
   return (
-    <div className="container">
-        <div className='container__element'>
-            {Content}
+    <div className='container'>
+        {Content.map((item, index) => (
+          <div key={index} className='container__element'>
+            {item}
         </div>
+      ))}
     </div>
 
   );

@@ -1,12 +1,11 @@
-import './CampoTexto.css'
-
+import './Field.css'
 interface FieldTextProps {
-    onChange: (value: string) => void
+    onChange: (value: string ) => void
     placeholder: string
     label: string
-    value: string
+    value: number | string
     required?: boolean
-    type?: 'text' | 'password' | 'date' | 'email' | 'number'
+    type?: 'text' | 'password' | 'date' | 'email' | 'number' | 'file'
 }
 
 const FieldText = ({placeholder,onChange,label,value,required = false, type = 'text'}: FieldTextProps) => {
@@ -14,7 +13,7 @@ const FieldText = ({placeholder,onChange,label,value,required = false, type = 't
     const placeholderModify = `${placeholder}...` 
 
     const onTyping = (evento: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(evento.target.value)
+        onChange(evento.target.value); 
     }
 
     return (

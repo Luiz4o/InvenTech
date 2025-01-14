@@ -1,15 +1,15 @@
 
-.field-text {
+.field-image {
     margin: 24px 0;
 }
 
-.field-text label {
+.field-image label {
     display: block;
     margin-bottom: 8px;
     font-size: 24px;
 }
 
-.field-text input {
+.field-image input {
     border: none; /* Remove a borda padrão */
     outline: none; /* Remove a borda de foco padrão */
     border-bottom: 2px solid #8b8b8b; /* Linha de fundo inicial */
@@ -19,15 +19,15 @@
     width: 100%;
 }
 
-.field-text input:hover{
+.field-image input:hover{
     border-bottom: 2px solid #3dcf86; /* Linha de fundo ao focar */
 }
 
-.field-text input[type='file'] {
+.field-image input[type='file'] {
     border-radius: 8px;
     border:2px solid #8b8b8b ;
 }
 
-.field-text input[type='file']:hover {
+.field-image input[type='file']:hover {
     border: 2px solid #3dcf86;
 }

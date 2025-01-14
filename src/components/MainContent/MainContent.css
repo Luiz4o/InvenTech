@@ -1,0 +1,23 @@
+.main-content {
+    position: fixed;
+    bottom: 0;
+    left: 22%;
+    width: 1200px;
+    height: 800px;
+    background-color:#FFF;
+    border-radius: 10px;
+    
+}
+
+.content {
+    display: flex;
+    margin-top: 30px;
+}
+
+.content img {
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    width: 500px;
+    margin-right: 20px;
+}
