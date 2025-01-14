@@ -4,6 +4,8 @@
     background-color: #5AE4A7;
     border-radius: 10%;
     border: none;
+    cursor: pointer;
+
 }
 
 .Cancel {
@@ -12,4 +14,20 @@
     background-color: #3C9F76;
     border-radius: 10%;
     border: none;
+    cursor: pointer;
+
+}
+
+.None {
+    background: none;
+    border: none; 
+    color: #000; 
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; 
+    transition: text-decoration 0.3s ease;
+}
+
+.None:hover {
+    text-decoration: underline;
 }

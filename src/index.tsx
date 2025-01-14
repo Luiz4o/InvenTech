@@ -2,15 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Button, { TypeEnum } from './components/Button'
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root'))
+  document.getElementById('root')!)
 root.render(
   <React.StrictMode>
     <App />
-    <Button typeEnum={TypeEnum.ACTION}>Registrar</Button>
-    <Button typeEnum={TypeEnum.CANCEL}>Cancelar</Button>
   </React.StrictMode>
 );
 

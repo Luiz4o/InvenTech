@@ -1,30 +1,23 @@
-import { ReactElement } from 'react'
 import './Button.css'
-
-import React from 'react'
 
 enum TypeEnum{
     ACTION = 'Action',
-    CANCEL = 'Cancel'
+    CANCEL = 'Cancel',
+    NONE = 'None'
 }
 
 interface BotaoProps {
-    children: ReactElement,
-    typeEnum: TypeEnum
+    children: string,
+    typeEnum: TypeEnum,
+    onClick?: ()=> void
 }
 
-const Botao = ({children,typeEnum}: BotaoProps) => {
-    if(typeEnum === 'Action'){
-        return (<button className='Action'>
-            {children}
-        </button>)
-    }else if(typeEnum === 'Cancel'){
-        return (<button className='Cancel'>
-            {children}
-        </button>)
-    }
+const Button = ({children,typeEnum, onClick}: BotaoProps) => {
+    return (<button className={typeEnum} onClick={onClick}>
+        {children}
+    </button>)
     
 }
 
-export default Botao
+export default Button
 export { TypeEnum }

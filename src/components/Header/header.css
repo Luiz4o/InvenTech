@@ -1,0 +1,29 @@
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7C7C7C;
+    color: white;
+    margin: 0 100px 10px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo__img{
+    height: 85px;
+    width: 75px;
+}
+
+a {
+    background: none;
+    border: none; 
+    color: #FFF; 
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; 
+    transition: text-decoration 0.3s ease;
+}
