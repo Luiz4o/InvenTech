@@ -9,6 +9,8 @@ import FormEditProduct from './components/FormEditProduct';
 import FormAddProduct from './components/FormAddProduct';
 import FormRemoveProduct from './components/FormRemoveProduct';
 import Product from './components/Product';
+import FormRegisterProduct from './components/FormRegisterProduct';
+import axios from 'axios';
 
 
 
@@ -19,11 +21,11 @@ function App() {
   const [products, setProducts] = useState<IProduct[]>([])
 
   const onNewProduct = (product: IProduct) => {
-    setProducts([...products,product])
+    setProducts([...products, product])
   }
 
   const [formComponent, setFormComponent] = useState<JSX.Element>(<Form onAddProduct={product => onNewProduct(product)} title="Registrar Produto" />);
-  const [pathImage, setPathImage] = useState('./images/add.jpg');
+  const [pathImage, setPathImage] = useState('./images/register.jpg');
   const [textAlt, setTextAlt] = useState('Adicionar produto');
 
   // Função que troca o componente de formulário e as props
@@ -33,59 +35,88 @@ function App() {
     setTextAlt(altText);
   };
 
-  const handleShowProducts = () => {
-    const productCards = (
-      <>
-        {products.map((product, index) => (
-          <Product key={index} {...product} /> // Renderiza cada produto
-        ))}
-      </>
-    );
-    handleButtonClick(productCards, './images/stock.jpg', 'Lista de produtos');
+  const handleShowProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/products')
+
+      console.log(response.data)
+
+      if (response.status === 200) {
+        const productsWithImages = response.data.map((product: any) => {
+          let imageUrl = '';
+          if (product.image) {
+            const blob = new Blob([new Uint8Array(product.image.data)], { type: 'image/png' });
+            imageUrl = product.image ? URL.createObjectURL(blob) : ''
+          }
+          return { ...product, image: imageUrl };
+
+        });
+
+
+
+        const productCards = (
+          <>
+            {productsWithImages.map((product: any, index: number) => (
+              <Product key={index} {...product} />
+            ))}
+          </>
+        )
+
+        handleButtonClick(productCards, './images/stock.jpg', 'Lista de produtos');
+
+      } else {
+        console.error('Falha ao criar o produto. Código de status:', response.status);
+      }
+    } catch (error) {
+      console.error('Erro de conexão', error);
+    }
+
+
+
   };
 
   const leftContent = ([
-    <Button typeEnum={TypeEnum.NONE} 
-    onClick={() =>
-      handleButtonClick(
-        <Form onAddProduct={product => onNewProduct(product)} title="Registrar Produto" />, 
-        './images/register.jpg', 
-        'Adicionar produto')}
-        >Registrar produto</Button>,
     <Button typeEnum={TypeEnum.NONE}
-    onClick={() =>
-      handleButtonClick(
-        <FormEditProduct onAddProduct={product => onNewProduct(product)} title="Editar informações do produto" />, 
-        './images/edit.jpg', 
-        'Adicionar produto')}>Editar produto</Button>,
+      onClick={() =>
+        handleButtonClick(
+          <FormRegisterProduct onAddProduct={product => onNewProduct(product)} title="Registrar Produto" />,
+          './images/register.jpg',
+          'Adicionar produto')}
+    >Registrar produto</Button>,
     <Button typeEnum={TypeEnum.NONE}
-    onClick={() =>
-      handleButtonClick(
-        <FormAddProduct onAddProduct={product => onNewProduct(product)} title="Adicionar Produtos"/>, 
-        './images/add.jpg', 
-        'Adicionar produto')}>Adicionar produtos</Button>,
+      onClick={() =>
+        handleButtonClick(
+          <FormEditProduct onAddProduct={product => onNewProduct(product)} title="Editar informações do produto" />,
+          './images/edit.jpg',
+          'Adicionar produto')}>Editar produto</Button>,
     <Button typeEnum={TypeEnum.NONE}
-    onClick={() =>
-      handleShowProducts()}>Ver estoque</Button>,
+      onClick={() =>
+        handleButtonClick(
+          <FormAddProduct onAddProduct={product => onNewProduct(product)} title="Adicionar Produtos" />,
+          './images/add.jpg',
+          'Adicionar produto')}>Adicionar produtos</Button>,
     <Button typeEnum={TypeEnum.NONE}
-    onClick={() =>
-      handleButtonClick(
-        <FormRemoveProduct onAddProduct={product => onNewProduct(product)} title="Saida de produtos do estoque" />, 
-        './images/stock.jpg', 
-        'Saida de produto')}>Saída de produtos</Button>
+      onClick={() =>
+        handleShowProducts()}>Ver estoque</Button>,
+    <Button typeEnum={TypeEnum.NONE}
+      onClick={() =>
+        handleButtonClick(
+          <FormRemoveProduct onAddProduct={product => onNewProduct(product)} title="Saida de produtos do estoque" />,
+          './images/stock.jpg',
+          'Saida de produto')}>Saída de produtos</Button>
   ]
-)
+  )
 
   return (
     <div className="App">
       <Header pathImg='./images/logo.png' name='InvenTech' alt='Logo InvenTech'></Header>
-      <Sidebar 
-      Content={leftContent}
+      <Sidebar
+        Content={leftContent}
       ></Sidebar>
-      <MainContent  pathImage={pathImage} textAlt={textAlt}>
-        {formComponent}    
+      <MainContent pathImage={pathImage} textAlt={textAlt}>
+        {formComponent}
       </MainContent>
-      
+
     </div>
   );
 }

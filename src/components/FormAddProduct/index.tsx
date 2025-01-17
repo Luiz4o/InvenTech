@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Botao, { TypeEnum } from '../Button'
+import { TypeEnum } from '../Button'
 import Field from '../Field'
 import './Form.css'
 import { IProduct } from '../../shared/interface/IProduct'
@@ -27,27 +27,6 @@ const FormAddProduct = (props: FormAddProductProps) => {
                 setNameProduct('')
                 setQty(0)
 
-        // try {
-        //     const response = await fetch('url', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(productData),
-        //     });
-
-        //     if (response.ok) {
-        //         props.onAddProduct(productData);
-        //         setNameProduct('');
-        //         setDescription('');
-        //         setPrice(0);
-        //         setImage('');
-        //     } else {
-        //         console.error('Erro ao enviar os dados', response);
-        //     }
-        // } catch (error) {
-        //     console.error('Erro de conexão', error);
-        // }
     };
 
     return (
@@ -56,15 +35,15 @@ const FormAddProduct = (props: FormAddProductProps) => {
                 <h2>{props.title}</h2>
                 <Field 
                     required={false}
-                    label="Nome do produto"
+                    label="ID do produto"
                     placeholder="Digite o nome do produto" 
                     value={nameProduct}
                     onChange={value => setNameProduct(value)}
                 />
                 <Field 
                     required={false}
-                    label="Quantidade"
-                    placeholder="Digite a quantidade de produtos" 
+                    label="Quantidade atual no estoque"
+                    placeholder="Digite a quantidade de produtos que tem no estoque" 
                     value={qty} 
                     onChange={value => setQty(value ? parseFloat(value):0)}
                     type='number'

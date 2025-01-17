@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import Botao, { TypeEnum } from '../Button'
+import { TypeEnum } from '../Button'
+import axios from 'axios';
 import Field from '../Field'
 import './Form.css'
 import { IProduct } from '../../shared/interface/IProduct'
@@ -11,7 +12,7 @@ interface FormProps {
     title:string
 }
 
-const Form = (props: FormProps) => {
+const FormRegisterProduct = (props: FormProps) => {
 
     const [nameProduct, setNameProduct] = useState('')
     const [description, setDescription] = useState('')
@@ -25,40 +26,37 @@ const Form = (props: FormProps) => {
     const onSave = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
-        const productData: IProduct = {
-            nameProduct,
-            description,
-            price,
-            image
-        };
+        if (!image) {
+            console.error('Imagem é obrigatória');
+            return;
+        }
 
-        props.onAddProduct(productData);
+        const formData = new FormData();
+        formData.append('nameProduct', nameProduct);
+        formData.append('description', description);
+        formData.append('price', price.toString()); // O valor precisa ser uma string
+        formData.append('image', image)
+
+
+        try {
+            const response = await axios.post('http://localhost:8000/products', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data', 
+                },
+              })
+              if (response.status === 201) {
+                console.log('Produto criado com sucesso', response.data);
+    
                 setNameProduct('');
                 setDescription('');
                 setPrice(0);
                 setImage(null);
-
-        // try {
-        //     const response = await fetch('url', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(productData),
-        //     });
-
-        //     if (response.ok) {
-        //         props.onAddProduct(productData);
-        //         setNameProduct('');
-        //         setDescription('');
-        //         setPrice(0);
-        //         setImage('');
-        //     } else {
-        //         console.error('Erro ao enviar os dados', response);
-        //     }
-        // } catch (error) {
-        //     console.error('Erro de conexão', error);
-        // }
+            } else {
+                console.error('Falha ao criar o produto. Código de status:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro de conexão', error);
+        }
     };
 
     return (
@@ -103,4 +101,4 @@ const Form = (props: FormProps) => {
     )
 }
 
-export default Form
+export default FormRegisterProduct

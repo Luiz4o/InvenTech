@@ -1,8 +1,10 @@
 export interface IProduct {
-    code?:string
+    productId?: string
     nameProduct?: string
     qty?: number
     price?: number
     description?: string
-    image?: File | undefined | null
+    image?: File | undefined | null | {
+        data: number[];
+    }
 }

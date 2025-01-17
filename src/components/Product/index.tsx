@@ -1,18 +1,25 @@
-import { IProduct } from '../../shared/interface/IProduct'
 import './Product.css'
 
-const Product = ({nameProduct,description,qty,price,image}:IProduct) => {
+interface IProductRender {
+    nameProduct: string;
+    description: string;
+    qty: number;
+    price: number;
+    image?: string
+}
 
-    const imageUrl = image ? URL.createObjectURL(image) : '';
+const Product = ({ nameProduct, description, qty, price, image }: IProductRender) => {
 
-    return(
+
+
+    return (
         <section className='container__product'>
             <p>Produto: {nameProduct}</p>
             <p>Descrição: {description}</p>
             <p>Quantidade: {qty}</p>
             <p>Valor: {price}</p>
             <div>
-                {imageUrl && <img src={imageUrl} alt={nameProduct} />}
+                {image && <img src={image} alt={nameProduct} />}
             </div>
         </section>
     )

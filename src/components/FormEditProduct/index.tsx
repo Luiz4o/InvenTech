@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import Botao, { TypeEnum } from '../Button'
+import { TypeEnum } from '../Button'
 import Field from '../Field'
 import './Form.css'
 import { IProduct } from '../../shared/interface/IProduct'
 import Button from '../Button'
 import FieldImage from '../FieldImage'
+import axios from 'axios'
 
 interface FormProps {
     onAddProduct: (Product: IProduct) => void
@@ -13,7 +14,7 @@ interface FormProps {
 
 const FormEditProduct = (props: FormProps) => {
 
-    const [code, setCode] = useState('')
+    const [productId, setProductId] = useState('')
     const [nameProduct, setNameProduct] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
@@ -26,42 +27,39 @@ const FormEditProduct = (props: FormProps) => {
     const onSave = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
-        const productData = {
-            code,
-            nameProduct,
-            description,
-            price,
-            image,
-        };
+        if (!image) {
+            console.error('Imagem é obrigatória');
+            return;
+        }
 
-        props.onAddProduct(productData)
-                setCode('')
+        const formData = new FormData();
+        formData.append('productId', productId)
+        formData.append('nameProduct', nameProduct)
+        formData.append('description', description)
+        formData.append('price', price.toString())
+        formData.append('image', image)
+
+
+        try {
+            const response = await axios.post('http://localhost:8000/products', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data', 
+                },
+              })
+              if (response.status === 201) {
+                console.log('Produto criado com sucesso', response.data);
+    
+                setProductId('')
                 setNameProduct('')
                 setDescription('')
                 setPrice(0)
                 setImage(null)
-
-        // try {
-        //     const response = await fetch('url', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(productData),
-        //     });
-
-        //     if (response.ok) {
-        //         props.onAddProduct(productData);
-        //         setNameProduct('');
-        //         setDescription('');
-        //         setPrice(0);
-        //         setImage('');
-        //     } else {
-        //         console.error('Erro ao enviar os dados', response);
-        //     }
-        // } catch (error) {
-        //     console.error('Erro de conexão', error);
-        // }
+            } else {
+                console.error('Falha ao criar o produto. Código de status:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro de conexão', error);
+        }
     };
 
     return (

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Botao, { TypeEnum } from '../Button'
+import { TypeEnum } from '../Button'
 import Field from '../Field'
 import './Form.css'
 import { IProduct } from '../../shared/interface/IProduct'
