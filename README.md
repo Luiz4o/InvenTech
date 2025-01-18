@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+# InvenTech API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta aplicação é uma API que permite a criação de usuários, produtos e gerenciamento de estoque. Ela também oferece autenticação baseada em JWT para usuários logados e permite o upload de imagens para os produtos, que são armazenadas como dados binários no banco de dados.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+### CRUD de Produtos:
+- Criar, ler, atualizar e excluir produtos.
+- A criação de um produto também cria automaticamente um item de estoque associado.
 
-### `npm start`
+### Gerenciamento de Estoque:
+- Atualizar a quantidade do produto em estoque.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Autenticação de Usuários:
+- Registro de novos usuários.
+- Autenticação JWT para proteger endpoints de criação de produtos e manipulação de estoque.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Upload de Imagens de Produtos:
+- Envio de imagens em formato binário (BLOB) que são armazenadas no banco de dados junto com o produto.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tecnologias Utilizadas
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Node.js
+- Express
+- Sequelize (ORM)
+- JWT (JSON Web Tokens)
+- Multer (para upload de arquivos)
+- MySQL (banco de dados)
