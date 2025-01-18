@@ -10,17 +10,17 @@
 }
 
 .field-image input {
-    border: none; /* Remove a borda padrão */
-    outline: none; /* Remove a borda de foco padrão */
-    border-bottom: 2px solid #8b8b8b; /* Linha de fundo inicial */
-    padding: 8px 0; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    transition: all 0.3s ease; /* Transição suave para efeitos */
+    border: none; 
+    outline: none; 
+    border-bottom: 2px solid #8b8b8b;
+    padding: 8px 0;
+    font-size: 16px; 
+    transition: all 0.3s ease;
     width: 100%;
 }
 
 .field-image input:hover{
-    border-bottom: 2px solid #3dcf86; /* Linha de fundo ao focar */
+    border-bottom: 2px solid #3dcf86;
 }
 
 .field-image input[type='file'] {

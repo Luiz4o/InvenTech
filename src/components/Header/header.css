@@ -5,12 +5,13 @@ header {
     align-items: center;
     background-color: #7C7C7C;
     color: white;
-    margin: 0 100px 10px 0;
+    margin: 0 10px 10px 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    margin-left: 20px;
 }
 
 .logo__img{
@@ -18,7 +19,7 @@ header {
     width: 75px;
 }
 
-a {
+button {
     background: none;
     border: none; 
     color: #FFF; 
@@ -26,4 +27,9 @@ a {
     cursor: pointer;
     text-decoration: none; 
     transition: text-decoration 0.3s ease;
+    margin-right: 40px;
+}
+
+button:hover {
+    text-decoration:underline;
 }

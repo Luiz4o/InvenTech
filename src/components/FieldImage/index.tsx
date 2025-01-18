@@ -1,6 +1,6 @@
 import './Field.css'
 interface FieldImageProps {
-    onChange: (value: File | null ) => void
+    onChange: (value: File | null) => void
     placeholder: string
     label: string
     value: number | string
@@ -8,9 +8,9 @@ interface FieldImageProps {
     type?: 'file'
 }
 
-const FieldImage = ({placeholder,onChange,label,value,required = false, type = 'file'}: FieldImageProps) => {
+const FieldImage = ({ placeholder, onChange, label, value, required = false, type = 'file' }: FieldImageProps) => {
 
-    const placeholderModify = `${placeholder}...` 
+    const placeholderModify = `${placeholder}...`
 
     const onTyping = (evento: React.ChangeEvent<HTMLInputElement>) => {
         const file = evento.target.files?.[0] || null
@@ -22,7 +22,7 @@ const FieldImage = ({placeholder,onChange,label,value,required = false, type = '
             <label>
                 {label}
             </label>
-            <input onChange={onTyping} required={required} placeholder={placeholderModify} type={type}/>
+            <input onChange={onTyping} required={required} placeholder={placeholderModify} type={type} accept='.png' />
         </div>
     )
 }

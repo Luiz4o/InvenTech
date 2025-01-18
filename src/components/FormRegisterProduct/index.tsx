@@ -1,30 +1,35 @@
 import { useState } from 'react'
 import { TypeEnum } from '../Button'
 import axios from 'axios';
-import Field from '../Field'
+import Field from '../FieldText'
 import './Form.css'
 import { IProduct } from '../../shared/interface/IProduct'
 import Button from '../Button'
 import FieldImage from '../FieldImage'
 
-interface FormProps {
+interface FormRegisterProps {
     onAddProduct: (Product: IProduct) => void
-    title:string
+    title: string
 }
 
-const FormRegisterProduct = (props: FormProps) => {
+const FormRegisterProduct = (props: FormRegisterProps) => {
 
     const [nameProduct, setNameProduct] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
-    const [image, setImage] =  useState<File | null>(null)
+    const [image, setImage] = useState<File | null>(null)
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
 
     const handleImageChange = (file: File | null) => {
-        setImage(file); // Atualiza o estado com o arquivo
+        setImage(file);
     };
 
     const onSave = async (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
+
+        setError(null)
+        setSuccessMessage(null)
 
         if (!image) {
             console.error('Imagem é obrigatória');
@@ -34,28 +39,36 @@ const FormRegisterProduct = (props: FormProps) => {
         const formData = new FormData();
         formData.append('nameProduct', nameProduct);
         formData.append('description', description);
-        formData.append('price', price.toString()); // O valor precisa ser uma string
+        formData.append('price', price.toString());
         formData.append('image', image)
 
+        const token = localStorage.getItem('jwtToken')
 
         try {
             const response = await axios.post('http://localhost:8000/products', formData, {
                 headers: {
-                  'Content-Type': 'multipart/form-data', 
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 },
-              })
-              if (response.status === 201) {
-                console.log('Produto criado com sucesso', response.data);
-    
+            })
+            if (response.status === 201) {
+                setSuccessMessage('Produto cadastrado com sucesso!')
+
+
                 setNameProduct('');
                 setDescription('');
                 setPrice(0);
                 setImage(null);
+
             } else {
                 console.error('Falha ao criar o produto. Código de status:', response.status);
+                setError('Ocorreu algum erro ao cadastrar o produto, por favor confira os campos e tente novamente');
+
             }
         } catch (error) {
             console.error('Erro de conexão', error);
+            setError('Ocorreu algum erro no servidor');
+
         }
     };
 
@@ -63,32 +76,34 @@ const FormRegisterProduct = (props: FormProps) => {
         <section className="formulario">
             <form onSubmit={onSave}>
                 <h2>{props.title}</h2>
-                <Field 
+                {successMessage && <p className="success-message">{successMessage}</p>}
+                {error && <p className="error-message">{error}</p>}
+                <Field
                     required={true}
                     label="Nome do produto"
-                    placeholder="Digite o nome do produto" 
+                    placeholder="Digite o nome do produto"
                     value={nameProduct}
                     onChange={value => setNameProduct(value)}
                 />
-                <Field 
+                <Field
                     required={true}
                     label="Descrição"
-                    placeholder="Descreva o produto" 
+                    placeholder="Descreva o produto"
                     value={description}
                     onChange={value => setDescription(value)}
                 />
-                <Field 
+                <Field
                     required={true}
                     label="Valor"
-                    placeholder="Digite o valor do produto" 
-                    value={price} 
-                    onChange={value => setPrice(value ? parseFloat(value):0)}
+                    placeholder="Digite o valor do produto"
+                    value={price}
+                    onChange={value => setPrice(value ? parseFloat(value) : 0)}
                     type='number'
                 />
-                <FieldImage 
+                <FieldImage
                     required={true}
                     label="Upload de imagem"
-                    placeholder="Selecione uma imagem" 
+                    placeholder="Selecione uma imagem"
                     value={image ? image.name : ''}
                     onChange={handleImageChange}
                     type='file'

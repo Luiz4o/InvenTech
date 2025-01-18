@@ -1,6 +1,11 @@
 .formulario {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     width: 610px;
-    background-color: transparent;
+}
+
+form{
+    background-color: #f1f1f1 !important;
+
 }
