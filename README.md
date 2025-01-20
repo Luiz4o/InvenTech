@@ -29,3 +29,10 @@ A aplicação usa **Axios** para fazer requisições à API e **JWT (JSON Web To
 - **React Router** para navegação entre páginas
 - **JWT (JSON Web Token)** para autenticação de usuários
 - **localStorage** para armazenar o token JWT
+
+---
+
+## Observações 
+
+- Utilize o npm install ao abrir o terminal na pasta do arquivo 
+- A depender da tela pode ser necessário ajuste manual no zomm
